@@ -41,17 +41,17 @@ Write-Host "--------------------------------------------------------------------
 
 Sleep -Seconds 3
 
-if ((Get-ClusterNode –Name $computer).State -ne "Up") {
+if ((Get-ClusterNode –Name $computer).State -eq "Up") {
     Write-Host "$(Get-TimeStamp) Current node resume status is COMPLETED"
     Sleep -Seconds 3
     Write-Host "$(Get-TimeStamp) Orchestation post-script finish. Exit code 0."
     Stop-Transcript
-    #Exit 0
+    Exit 0
 }else {
     Write-Host "$(Get-TimeStamp) Current node resume status is: " -NoNewline
     Write-Host (Get-ClusterNode –Name $computer).State
     Write-Host "$(Get-TimeStamp) We cannot continue because current state is not correct"
     Write-Host "$(Get-TimeStamp) Orchestation post-script finish. Exit code 1."
     Stop-Transcript
-    #Exit 1
+    Exit 1
 }
